@@ -9,5 +9,5 @@ import com.foodordering.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
-
+	User findUserByEmail(String email);
 }

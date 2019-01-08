@@ -68,10 +68,10 @@
 						<td th:utext="${restaurant.phoneNumber}"></td>
 						<td><a th:href="${restaurant.menuUrl}"
 							th:text="${restaurant.menuUrl}" th:target="_blank"></a></td>
-						<td style="text-align: center;"><a th:href="#"
+						<td style="text-align: center;"><a th:href="${'/'}"
 							th:value="${restaurant.id}">View restaurant details</a></td>
 						<td style="text-align: center;"><a
-							th:href="#"
+							th:href="${'/'}"
 							th:value="${restaurant.id}">Create new group order</a></td>
 					</tr>
 				</tbody>

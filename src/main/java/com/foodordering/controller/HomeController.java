@@ -18,6 +18,7 @@ import com.foodordering.dto.UserDTO;
 import com.foodordering.entity.Restaurant;
 import com.foodordering.entity.User;
 import com.foodordering.service.RestaurantService;
+import com.foodordering.service.UserService;
 
 @Controller
 public class HomeController {
@@ -27,6 +28,9 @@ public class HomeController {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/")
     public String listRestaurants(Model model) {
@@ -45,4 +49,34 @@ public class HomeController {
 		return "register";
 	}
 	
+	@PostMapping("/register")
+    public ModelAndView createNewUser(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("user", userDTO);
+            modelAndView.setViewName("register");
+        } else {
+            if (!userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
+                modelAndView.addObject("errorMessage", "Password doesn't matches confirmation password!");
+                modelAndView.addObject("user", userDTO);
+                modelAndView.setViewName("register");
+                return modelAndView;
+            }
+
+            User userExists = userService.findUserByEmail(userDTO.getEmail());
+            if (userExists != null) {
+                modelAndView.addObject("errorMessage", "User with given email already exists!");
+                modelAndView.addObject("user", userDTO);
+                modelAndView.setViewName("register");
+                return modelAndView;
+            }
+            User user = modelMapper.map(userDTO, User.class);
+            user = userService.saveUser(user);
+            modelAndView.addObject("successMessage", "Successful registration! Please login!");
+            modelAndView.setViewName("home");
+
+        }
+        return modelAndView;
+    }
 }
