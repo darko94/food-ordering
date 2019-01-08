@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Food ordering</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<!-- Custom CSS -->
+	
+	<link rel="stylesheet"
+		href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Droid+Sans'
+		rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Architects+Daughter'
+		rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+	<div class="container-fluid">
+		<br> <br>
+		<div class="col-md-10 col-md-offset-1">
+			<br>
+			<div style="float: right;">
+				<a class="btn btn-md btn btn-primary" th:href="${'/login'}">Login:
+					ADMIN</a> <a class="btn btn-md btn btn-danger"
+					th:href="${'/register'}">Register</a>
+
+				<h4 th:utext="${errorMessage}" style="color: #FF0000;"></h4>
+			</div>
+		</div>
+		<br> <br> <br>
+		<h2
+			style="font-size: 100px; font-family: 'Architects Daughter', cursive;">FOOD
+			ORDERING</h2>
+		<div class="col-md-2" style="float: right;"></div>
+		<div class="col-md-10 col-md-offset-1">
+			<br> 
+			<div class="" style="font-family: 'Architects Daughter', cursive">
+				<h2>
+					<b>AVAILABLE RESTAURANTS</b>
+				</h2>
+			</div>
+			<table class="table table-light table-hover table-bordered">
+				<thead>
+					<tr
+						style="color: #f2f2f2; background-color: #669999; font-size: large">
+						<th>Name</th>
+						<th>Email</th>
+						<th>Address</th>
+						<th>Phone number</th>
+						<th>Menu url</th>
+						<th style="text-align: center;">View restaurant details</th>
+						<th style="text-align: center;">Create new group order</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="restaurant : ${restaurants}" style="background-color: #f8f9fa;">
+						<td th:utext="${restaurant.name}"></td>
+						<td th:utext="${restaurant.email}"></td>
+						<td th:utext="${restaurant.address}"></td>
+						<td th:utext="${restaurant.phoneNumber}"></td>
+						<td><a th:href="${restaurant.menuUrl}"
+							th:text="${restaurant.menuUrl}" th:target="_blank"></a></td>
+						<td style="text-align: center;"><a th:href="#"
+							th:value="${restaurant.id}">View restaurant details</a></td>
+						<td style="text-align: center;"><a
+							th:href="#"
+							th:value="${restaurant.id}">Create new group order</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
