@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title>Login</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br> <br>
+		<form th:action="@{/login}" method="POST" class="form-signin">
+			<div class="form-signin-heading">
+				<h1>Admin login</h1>
+			</div>
+			<br /> <input type="text" id="email" name="email"
+				th:placeholder="Email" class="form-control" /> <br /> <input
+				type="password" th:placeholder="Password" id="password"
+				name="password" class="form-control" /> <br />
+
+			<div align="center" th:if="${param.error}">
+				<p style="font-size: 20; color: #FF1C19;">Invalid email or
+					password.</p>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" name="Submit"
+				value="Login" type="Submit" th:text="Login"></button>
+			<br> <a class="btn btn-md btn-danger" th:href="${'/register'}">Register</a>
+			<br> <br> 
+			<a class="btn btn-md btn-default"
+				th:href="${'/'}">Back </a> <br>
+			<h4 th:utext="${successMessage}" style="color: #265299"></h4>
+		</form>
+	</div>
+</body>
+</html>

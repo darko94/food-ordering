@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 	<title>Food ordering</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -27,10 +28,16 @@
 		<br> <br>
 		<div class="col-md-10 col-md-offset-1">
 			<br>
-			<div style="float: right;">
+			<div style="float: right;" sec:authorize="isAnonymous()">
 				<a class="btn btn-md btn btn-primary" th:href="${'/login'}">Login:
 					ADMIN</a> <a class="btn btn-md btn btn-danger"
 					th:href="${'/register'}">Register</a>
+
+				<h4 th:utext="${errorMessage}" style="color: #FF0000;"></h4>
+			</div>
+			<div style="float: right;" sec:authorize="isAuthenticated()">
+				<a class="btn btn-md btn btn-danger"
+					th:href="${'/logout'}">Logout</a>
 
 				<h4 th:utext="${errorMessage}" style="color: #FF0000;"></h4>
 			</div>

@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${spring.queries.users-query}")
     private String usersQuery;
 
-    @Value("select u.authorities_id, a.id from user u inner join authorities a on(u.authorities_id=a.id) where u.email=?")
+    @Value("${spring.queries.roles-query}")
     private String authorityQuery;
 
 
@@ -48,14 +48,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/register").permitAll()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/register").anonymous()
+                .antMatchers("/login").anonymous()
                 .antMatchers("/admin/**").authenticated()
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/admin/list")
+                .defaultSuccessUrl("/")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and()
@@ -67,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     }
+    
 
     @Override
     public void configure(WebSecurity web) throws Exception {
