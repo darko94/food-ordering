@@ -1,5 +1,7 @@
 package com.foodordering.dto;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -8,7 +10,7 @@ import com.foodordering.entity.Authority;
 
 public class UserDTO {
 
-    private Integer id;
+    private UUID id;
     @NotNull(message = "Email must not be null")
     @Size(min = 1, max = 50)
     @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")
@@ -22,7 +24,7 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(Integer id, String email, String password, String confirmPassword, Authority authorityId) {
+    public UserDTO(UUID id, String email, String password, String confirmPassword, Authority authorityId) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -30,11 +32,11 @@ public class UserDTO {
         this.authorityId = authorityId;
     }
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

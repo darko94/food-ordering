@@ -1,6 +1,7 @@
 package com.foodordering.service.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public List<Restaurant> getAllRestaurants() {
 		return restaurantRepository.findAll();
+	}
+
+	@Override
+	public Restaurant getRestaurantById(UUID id) {
+		return restaurantRepository.getOne(id);
 	}
 
 }
