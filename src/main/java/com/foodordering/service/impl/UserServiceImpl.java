@@ -10,11 +10,6 @@ import com.foodordering.repository.AuthorityRepository;
 import com.foodordering.repository.UserRepository;
 import com.foodordering.service.UserService;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @Service
 public class UserServiceImpl implements UserService {
 

@@ -1,8 +1,5 @@
 package com.foodordering.dto;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -31,10 +28,6 @@ public class RestaurantDTO {
     private String additionalCharges;
 
     private List<GroupOrderDTO> groupOrderList;
-
-    @NotNull
-    @Transient
-    private MultipartFile uploadFile;
 
     public RestaurantDTO() {
     }
@@ -123,11 +116,4 @@ public class RestaurantDTO {
         this.groupOrderList = groupOrderList;
     }
 
-    public MultipartFile getUploadFile() {
-        return uploadFile;
-    }
-
-    public void setUploadFile(MultipartFile uploadFile) {
-        this.uploadFile = uploadFile;
-    }
 }

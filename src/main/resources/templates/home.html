@@ -53,7 +53,7 @@
 				</h2>
 			</div>
 
-			<form th:action="@{/admin/showFormForAdd}" method="get"
+			<form th:action="@{/admin/add-restaurant}" method="get"
 				sec:authorize="isAuthenticated()" class="center">
 				<br />
 				<button class="btn btn-lg btn btn-primary" type="Submit"
@@ -88,13 +88,14 @@
 						<td th:utext="${restaurant.phoneNumber}"></td>
 						<td><a th:href="${restaurant.menuUrl}"
 							th:text="${restaurant.menuUrl}" th:target="_blank"></a></td>
-						<td style="text-align: center;"><a th:href="${'/'}"
-							th:value="${restaurant.id}">View restaurant details</a></td>
+						<td style="text-align: center;"><a th:href="${'/restaurant-details/'} + ${restaurant.id}"
+							th:value="${restaurant.id}"><span
+						class="glyphicon glyphicon-info-sign"></span> View restaurant details</a></td>
 						<td style="text-align: center;" sec:authorize="isAnonymous()"><a
-							th:href="${'/'}" th:value="${restaurant.id}">Create new group
+							th:href="${'/add-group-order/'} + ${restaurant.id}" th:value="${restaurant.id}">Create new group
 								order</a></td>
 						<td style="text-align: center;" sec:authorize="isAuthenticated()"><a th:href="${'/admin/listOrders/' + restaurant.id}"
-							th:value="${restaurant.id}">View all group orders</a></td>
+							th:value="${restaurant.id}"><span class="glyphicon glyphicon-list-alt"></span> View all group orders</a></td>
 					</tr>
 				</tbody>
 			</table>

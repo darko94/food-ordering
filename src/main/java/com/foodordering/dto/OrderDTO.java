@@ -1,11 +1,13 @@
 package com.foodordering.dto;
 
+import java.util.UUID;
+
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class OrderDTO {
-    private Integer id;
+    private UUID id;
     @NotNull(message = "Please fill employee name... Must not be null !")
     @Size(min = 1, max = 1000)
     private String employeeName;
@@ -21,7 +23,7 @@ public class OrderDTO {
     public OrderDTO() {
     }
 
-    public OrderDTO(Integer id, String employeeName, String itemName, double price, GroupOrderDTO groupOrderId, String groupOrderIdString) {
+    public OrderDTO(UUID id, String employeeName, String itemName, double price, GroupOrderDTO groupOrderId, String groupOrderIdString) {
         this.id = id;
         this.employeeName = employeeName;
         this.itemName = itemName;
@@ -30,11 +32,11 @@ public class OrderDTO {
         this.groupOrderIdString = groupOrderIdString;
     }
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

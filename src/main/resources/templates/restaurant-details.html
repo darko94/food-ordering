@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Restaurant</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<!-- Custom CSS -->
+
+<link rel="stylesheet"
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans'
+	rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Architects+Daughter'
+	rel='stylesheet' type='text/css'>
+</head>
+<body>
+<br/><br/><br/><br/><br/><br/>
+	<div class="container-fluid col-md-10 col-md-offset-1">
+
+
+		<h2 style="text: 25px; font-family: 'Architects Daughter', cursive">About
+			Restaurant</h2>
+		<table class="table table-light table-hover table-bordered">
+			<tr
+				style="color: #f2f2f2; background-color: #669999; font-size: large">
+				<th>Name</th>
+				<th>Email</th>
+				<th>Address</th>
+				<th>Phone number</th>
+				<th>Menu url</th>
+				<th>Delivery time</th>
+				<th>Additional charges</th>
+				<th sec:authorize="isAuthenticated()" style="text-align: center;">Edit restaurant</th>
+				<th sec:authorize="isAuthenticated()" style="text-align: center;">Delete restaurant</th>
+
+			</tr>
+			<tr th:each="restaurant : ${restaurant}"
+				style="background-color: #f8f9fa;">
+				<td th:utext="${restaurant.name}"></td>
+				<td th:utext="${restaurant.email}"></td>
+				<td th:utext="${restaurant.address}"></td>
+				<td th:utext="${restaurant.phoneNumber}"></td>
+				<td><a th:href="${restaurant.menuUrl}"
+					th:text="${restaurant.menuUrl}" th:target="_blank"></a></td>
+				<td th:utext="${restaurant.deliveryTime}"></td>
+				<td th:utext="${restaurant.additionalCharges}"></td>
+				<td  sec:authorize="isAuthenticated()" style="text-align: center;"><a class="btn btn-md btn-primary"
+					th:href="${'/admin/edit-restaurant/' + restaurant.id}"
+					th:value="${restaurant.id}"><span
+						class="glyphicon glyphicon-pencil"></span> Edit restaurant</a></td>
+
+
+				<td  sec:authorize="isAuthenticated()" style="text-align: center;"><a class="btn btn-md btn-danger"
+					th:href="${'/admin/delete-restaurant/' + restaurant.id}"
+					onclick="if(!(confirm('Are you sure you want to delete this restaurant?'))) return false"
+					th:value="${restaurant.id}"><span
+						class="glyphicon glyphicon-remove"></span> Delete restaurant</a></td>
+
+			</tr>
+		</table>
+	</div>
+	<div class="d-inline-block">
+		<div class="col-md-10 col-md-offset-1">
+			<form th:action="@{/}" method="get">
+				<button class="btn btn-md btn-primary" name="back" type="Submit">Back</button>
+			</form>
+
+			<div></div>
+		</div>
+	</div>
+
+</body>
+</html>

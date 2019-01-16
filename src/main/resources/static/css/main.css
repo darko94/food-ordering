@@ -50,13 +50,11 @@ h6 {
     font-size: 15px;
 }
 
-/* Have padding top so banner image doesn't overlap top nav */
 .intro-banner {
     padding-top: 50px;
     padding-bottom: 50px;
     text-align: center;
     color: #f2f2f2;
-    /*background: url("../images/restaurant.jpg") no-repeat center center;*/
     background-color: plum;
     background-color: cadetblue;
     background-size: cover;

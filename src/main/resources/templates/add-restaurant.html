@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title>Add restaurant</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom CSS -->
+
+<link rel="stylesheet"
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans'
+	rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Architects+Daughter'
+	rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+	<div class="container">
+		<br /> <br /> <br /> <br /> <br />
+		<div th:switch="${addOrEdit}">
+			<h2 style="text: 25px; font-family: 'Architects Daughter', cursive"
+				th:case="'add'">Add new restaurant</h2>
+			<h2 style="text: 25px; font-family: 'Architects Daughter', cursive"
+				th:case="'edit'">Edit restaurant</h2>
+		</div>
+		<form th:action="@{/admin/add-restaurant}" method="post"
+			th:object="${restaurant}" enctype="multipart/form-data"
+			class="center">
+			<input type="hidden" name="id" th:value="${restaurant.id}" />
+
+			<table class="table" style="margin-left: 25%; width: 50%;">
+				<tr class="form-group">
+					<td><input type="text" class="form-control" th:field="*{name}"
+						name="name" placeholder="Name" /></td>
+					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+						style="color: #FF1C19">Name Error</td>
+				</tr>
+
+				<tr>
+					<td><input type="text" class="form-control"
+						th:field="*{email}" name="email" placeholder="Email" /></td>
+					<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+						style="color: #FF1C19">Email Error</td>
+				</tr>
+				<tr>
+					<td><input type="text" class="form-control"
+						th:field="*{address}" name="address" placeholder="Address" /></td>
+					<td th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
+						style="color: #FF1C19">Address Error</td>
+				</tr>
+				<tr>
+					<td><input type="text" class="form-control"
+						th:field="*{phoneNumber}" name="phoneNumber"
+						placeholder="Phone number" /></td>
+					<td th:if="${#fields.hasErrors('phoneNumber')}"
+						th:errors="*{phoneNumber}" style="color: #FF1C19">Phone
+						number Error</td>
+				</tr>
+				<tr>
+					<td><input type="text" class="form-control"
+						th:field="*{menuUrl}" name="menuUrl" placeholder="Menu url" /></td>
+					<td th:if="${#fields.hasErrors('menuUrl')}" th:errors="*{menuUrl}"
+						style="color: #FF1C19">Menu url Error</td>
+				</tr>
+				<tr>
+					<td><input type="text" class="form-control"
+						th:field="*{deliveryTime}" name="deliveryTime"
+						placeholder="Delivery time" /></td>
+					<td th:if="${#fields.hasErrors('deliveryTime')}"
+						th:errors="*{deliveryTime}" style="color: #FF1C19">Delivery
+						time Error</td>
+				</tr>
+				<tr>
+					<td><input type="text" class="form-control"
+						th:field="*{additionalCharges}" name="additionalCharges"
+						placeholder="Additional charges" /></td>
+					<td th:if="${#fields.hasErrors('additionalCharges')}"
+						th:errors="*{additionalCharges}" style="color: #FF1C19">Additional
+						charges Error</td>
+				</tr>
+			</table>
+
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+
+			<div th:switch="${addOrEdit}">
+				<button class="btn btn-success btn-lg" type="submit" th:case="'add'">Add restaurant</button>
+				<button class="btn btn-success btn-lg" type="submit" th:case="'edit'">Edit restaurant</button>
+			</div>
+
+		</form>
+		<br/>
+		<form th:action="@{/}" method="get" class="center">
+			<button class="btn btn-md btn-default" type="Submit">Back</button>
+		</form>
+	</div>
+</body>
+
+</html>
