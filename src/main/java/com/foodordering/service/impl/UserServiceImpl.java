@@ -27,11 +27,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
-
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Authority authorities = new Authority();
-        authorities = authorityRepository.findByAuthority("ADMIN");
-        user.setAuthorityId(authorities);
+        Authority authority = new Authority();
+        authority = authorityRepository.findByAuthority("ADMIN");
+        user.setAuthority(authority);
 
         return userRepository.save(user);
     }

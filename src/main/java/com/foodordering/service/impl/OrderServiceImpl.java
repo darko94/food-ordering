@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
         List<Order> orderList = orderRepository.findAll();
 
         for (Order o : orderList){
-            if(o.getGroupOrderId().getId() == (groupOrder.getId())){
+            if(o.getGroupOrder().getId() == (groupOrder.getId())){
                 total += o.getPrice();
             }
 

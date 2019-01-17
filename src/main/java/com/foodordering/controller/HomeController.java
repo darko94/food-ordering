@@ -131,7 +131,7 @@ public class HomeController {
             modelAndView.setViewName("add-group-order");
         } else {
             Restaurant restaurant = restaurantService.getRestaurantById(UUID.fromString(groupOrder.getRestaurantIdString()));
-            groupOrder.setRestaurantId(modelMapper.map(restaurant, RestaurantDTO.class));
+            groupOrder.setRestaurant(modelMapper.map(restaurant, RestaurantDTO.class));
             groupOrder.setCreated(new Date());
             //long timestamp = groupOrder.getCreated().getTime() + 60000 * groupOrder.getTimeout();
             groupOrder = modelMapper.map(groupOrderService.saveGroupOrder(modelMapper.map(groupOrder, GroupOrder.class)), GroupOrderDTO.class);
@@ -170,7 +170,7 @@ public class HomeController {
     public ModelAndView createOrder(@Valid @ModelAttribute("order") OrderDTO orderDto, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView("group-order");
 		GroupOrder groupOrder = groupOrderService.getGroupOrderById(UUID.fromString(orderDto.getGroupOrderIdString()));
-		orderDto.setGroupOrderId(modelMapper.map(groupOrder, GroupOrderDTO.class));
+		orderDto.setGroupOrder(modelMapper.map(groupOrder, GroupOrderDTO.class));
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("order", orderDto);
             modelAndView.addObject("groupOrder", modelMapper.map(groupOrder, GroupOrderDTO.class));

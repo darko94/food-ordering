@@ -34,10 +34,10 @@
         <div><h5 style="display: inline;" th:utext="'Timeout: ' + ${groupOrder.timeout} + 'min ('"></h5><h5
                 style="display: inline;" id="demo"></h5></div>
         <h5 th:utext="'Creator: ' + ${groupOrder.creator}"></h5>
-        <h5>Restaurant: <a th:href="'http://localhost:8080/restaurant-details/' + ${groupOrder.restaurantId.id}"
-                           th:text="${groupOrder.restaurantId.name}"></a></h5>
-        <h5 th:utext="'Phone: ' + ${groupOrder.restaurantId.phoneNumber}"></h5>
-        <h5>Menu URL: <a th:href="${groupOrder.restaurantId.menuUrl}" th:utext="${groupOrder.restaurantId.menuUrl}"></a>
+        <h5>Restaurant: <a th:href="'http://localhost:8080/restaurant-details/' + ${groupOrder.restaurant.id}"
+                           th:text="${groupOrder.restaurant.name}"></a></h5>
+        <h5 th:utext="'Phone: ' + ${groupOrder.restaurant.phoneNumber}"></h5>
+        <h5>Menu URL: <a th:href="${groupOrder.restaurant.menuUrl}" th:utext="${groupOrder.restaurant.menuUrl}"></a>
         </h5>
         <input hidden="hidden" th:value="${groupOrder.created.time + 60000 * groupOrder.timeout}" id="created">
         <hr>
@@ -102,7 +102,7 @@
                     <th style="color: #f2f2f2 ;background-color:#669999; font-size: large">Price</th>
 
                 </tr>
-                <tr th:each="order : ${groupOrder.getOrderList()}">
+                <tr th:each="order : ${groupOrder.getOrders()}">
                     <td th:utext="${order.employeeName}"></td>
                     <td th:utext="${order.itemName}"></td>
                     <td th:utext="${order.price}"></td>
