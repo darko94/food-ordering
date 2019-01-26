@@ -6,12 +6,13 @@
 <title>Food ordering</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap.min.css"
+	rel="stylesheet">
+
 
 <!-- Custom CSS -->
 
@@ -27,24 +28,24 @@
 	<div class="container-fluid">
 		<br> <br>
 		<div class="col-md-10 col-md-offset-1">
-			<br>
-			<div style="float: right;" sec:authorize="isAnonymous()">
-				<a class="btn btn-md btn btn-primary" th:href="${'/login'}">Login:
-					ADMIN</a> <a class="btn btn-md btn btn-danger" th:href="${'/register'}">Register</a>
-
-				<h4 th:utext="${errorMessage}" style="color: #FF0000;"></h4>
-			</div>
-			<div style="float: right;" sec:authorize="isAuthenticated()">
-				<a class="btn btn-md btn btn-danger" th:href="${'/logout'}">Logout</a>
-
-				<h4 th:utext="${errorMessage}" style="color: #FF0000;"></h4>
-			</div>
+			<nav class="navbar" style="background-color: #f9f9f9;">
+				<div class="col-md-12">
+					<div class="navbar-header">
+						<a class="navbar-brand" th:href="${'/'}" style="font-size: 25px; font-family: 'Architects Daughter', cursive;">Food ordering</a>
+					</div>
+					<ul class="nav navbar-nav navbar-right">
+						<li sec:authorize="isAnonymous()"><a th:href="${'/register'}"><span
+								class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+						<li sec:authorize="isAnonymous()"><a th:href="${'/login'}"><span
+								class="glyphicon glyphicon-log-in"></span> Login</a></li>
+						<li sec:authorize="isAuthenticated()"><a
+							th:href="${'/logout'}"><span
+								class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+					</ul>
+				</div>
+			</nav>
 		</div>
 		<br> <br> <br>
-		<h2
-			style="font-size: 100px; font-family: 'Architects Daughter', cursive;">FOOD
-			ORDERING</h2>
-		<div class="col-md-2" style="float: right;"></div>
 		<div class="col-md-10 col-md-offset-1">
 			<br>
 			<div style="font-family: 'Architects Daughter', cursive">
@@ -59,11 +60,11 @@
 				<button class="btn btn-lg btn btn-primary" type="Submit"
 					style="font-size: 25px; font-family: 'Architects Daughter', cursive; text-align: center;">Add
 					new restaurant</button>
-				<br />
-				<br />
+				<br /> <br />
 			</form>
 
-			<table class="table table-light table-hover table-bordered">
+			<table class="table table-light table-hover table-bordered"
+				id="restaurantsTable">
 				<thead>
 					<tr
 						style="color: #f2f2f2; background-color: #669999; font-size: large">
@@ -88,18 +89,50 @@
 						<td th:utext="${restaurant.phoneNumber}"></td>
 						<td><a th:href="${restaurant.menuUrl}"
 							th:text="${restaurant.menuUrl}" th:target="_blank"></a></td>
-						<td style="text-align: center;"><a th:href="${'/restaurant-details/'} + ${restaurant.id}"
+						<td style="text-align: center;"><a
+							th:href="${'/restaurant-details/'} + ${restaurant.id}"
 							th:value="${restaurant.id}"><span
-						class="glyphicon glyphicon-info-sign"></span> View restaurant details</a></td>
+								class="glyphicon glyphicon-info-sign"></span> View restaurant
+								details</a></td>
 						<td style="text-align: center;" sec:authorize="isAnonymous()"><a
-							th:href="${'/add-group-order/'} + ${restaurant.id}" th:value="${restaurant.id}">Create new group
-								order</a></td>
-						<td style="text-align: center;" sec:authorize="isAuthenticated()"><a th:href="${'/admin/listOrders/' + restaurant.id}"
-							th:value="${restaurant.id}"><span class="glyphicon glyphicon-list-alt"></span> View all group orders</a></td>
+							th:href="${'/add-group-order/'} + ${restaurant.id}"
+							th:value="${restaurant.id}">Create new group order</a></td>
+						<td style="text-align: center;" sec:authorize="isAuthenticated()"><a
+							th:href="${'/admin/active-group-orders/' + restaurant.id}"
+							th:value="${restaurant.id}"><span
+								class="glyphicon glyphicon-list-alt"></span> View all group
+								orders</a></td>
 					</tr>
 				</tbody>
+				<tfoot>
+					<tr
+						style="color: #f2f2f2; background-color: #669999; font-size: large">
+						<th>Name</th>
+						<th>Email</th>
+						<th>Address</th>
+						<th>Phone number</th>
+						<th>Menu url</th>
+						<th style="text-align: center;">View restaurant details</th>
+						<th style="text-align: center;" sec:authorize="isAnonymous()">Create
+							new group order</th>
+						<th style="text-align: center;" sec:authorize="isAuthenticated()">View
+							all group orders</th>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 	</div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/dataTables.bootstrap.min.js"></script>
+	<script>
+		$('#restaurantsTable').dataTable();
+	</script>
+
 </body>
 </html>

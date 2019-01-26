@@ -1,130 +1,151 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!--<meta http-equiv="Refresh" content="2">-->
-    <title>Group order</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/js/main.js"></script>
+<!--<meta http-equiv="Refresh" content="2">-->
+<title>Group order</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
 
-    <!-- Custom CSS -->
+<!-- Custom CSS -->
 
-    <link rel="stylesheet"
-          href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link href='http://fonts.googleapis.com/css?family=Droid+Sans'
-          rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Architects+Daughter'
-          rel='stylesheet' type='text/css'>
+<link rel="stylesheet"
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans'
+	rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Architects+Daughter'
+	rel='stylesheet' type='text/css'>
 </head>
 <body>
-<br/><br/><br/>
-<div class="container" style="background-color: #f8f9fa;">
-    <div class="col-md-10 col-md-offset-1">
-        <h2 style="text:25px; font-family: 'Architects Daughter', cursive; color: black !important;">Group order</h2>
-        <hr>
-        <h5 style="display: inline;">Order URL: </h5><h5 style="display: inline;" id="display"><a
-            th:href="'http://localhost:8080/group-order/' + ${groupOrder.id}"
-            th:utext="'http://localhost:8080/group-order/' + ${groupOrder.id}"></a></h5>&nbsp;&nbsp;<button
-            style="display: inline;" onClick='copyText("display")'>Copy URL
-    </button>
-        <div><h5 style="display: inline;" th:utext="'Timeout: ' + ${groupOrder.timeout} + 'min ('"></h5><h5
-                style="display: inline;" id="demo"></h5></div>
-        <h5 th:utext="'Creator: ' + ${groupOrder.creator}"></h5>
-        <h5>Restaurant: <a th:href="'http://localhost:8080/restaurant-details/' + ${groupOrder.restaurant.id}"
-                           th:text="${groupOrder.restaurant.name}"></a></h5>
-        <h5 th:utext="'Phone: ' + ${groupOrder.restaurant.phoneNumber}"></h5>
-        <h5>Menu URL: <a th:href="${groupOrder.restaurant.menuUrl}" th:utext="${groupOrder.restaurant.menuUrl}"></a>
-        </h5>
-        <input hidden="hidden" th:value="${groupOrder.created.time + 60000 * groupOrder.timeout}" id="created">
-        <hr>
-        <form th:action="@{/add-order}" method="post" th:object="${order}">
-            <input id="OrderID" type="hidden" name="groupOrderIdString" th:value="${order.groupOrderIdString}"/>
-            <div id="table1">
-                <table class="table table-striped">
-                    <tr>
-                        <td>Employee name:</td>
-                        <td><input type="text" class="form-control" th:field="*{employeeName}" name="employeeName"
-                                   placeholder="Employee Name"/></td>
-                        <td th:if="${#fields.hasErrors('employeeName')}" th:errors="*{employeeName}"
-                            style="color: #FF1C19">Creator Error
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Item name:</td>
-                        <td><input type="text" class="form-control" th:field="*{itemName}" name="itemName"
-                                   placeholder="Item name"/></td>
-                        <td th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}" style="color: #FF1C19">Item
-                            name Error
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Price:</td>
-                        <td><input type="text" class="form-control" th:field="*{price}" name="price"
-                                   placeholder="Price"/></td>
-                        <td th:if="${#fields.hasErrors('price')}" th:errors="*{price}" style="color: #FF1C19">Price
-                            Error
-                        </td>
-                    </tr>
-                </table>
+	<br />
+	<br />
+	<br />
+	<div class="container" style="background-color: #f8f9fa;">
+		<div class="col-md-10 col-md-offset-1">
+			<h2
+				style="text: 25px; font-family: 'Architects Daughter', cursive; color: black !important;">Group
+				order</h2>
+			<hr>
+			<h5 style="display: inline;">Order URL:</h5>
+			<h5 style="display: inline;" id="display">
+				<a th:href="'http://localhost:8080/group-order/' + ${groupOrder.id}"
+					th:utext="'http://localhost:8080/group-order/' + ${groupOrder.id}"></a>
+			</h5>
+			&nbsp;&nbsp;
+			<button style="display: inline;" onClick='copyText("display")'>Copy
+				URL</button>
+			<div>
+				<h5 style="display: inline;"
+					th:utext="'Timeout: ' + ${groupOrder.timeout} + 'min ('"></h5>
+				<h5 style="display: inline;" id="demo"></h5>
+			</div>
+			<h5 th:utext="'Creator: ' + ${groupOrder.creator}"></h5>
+			<h5>
+				Restaurant: <a
+					th:href="'http://localhost:8080/restaurant-details/' + ${groupOrder.restaurant.id}"
+					th:text="${groupOrder.restaurant.name}"></a>
+			</h5>
+			<h5 th:utext="'Phone: ' + ${groupOrder.restaurant.phoneNumber}"></h5>
+			<h5>
+				Menu URL: <a th:href="${groupOrder.restaurant.menuUrl}"
+					th:utext="${groupOrder.restaurant.menuUrl}"></a>
+			</h5>
+			<input hidden="hidden"
+				th:value="${groupOrder.created.time + 60000 * groupOrder.timeout}"
+				id="created">
+			<hr>
+			<form th:action="@{/add-order}" method="post" th:object="${order}">
+				<input id="OrderID" type="hidden" name="groupOrderIdString"
+					th:value="${order.groupOrderIdString}" />
+				<div id="table1">
+					<table class="table table-striped">
+						<tr>
+							<td>Employee name:</td>
+							<td><input type="text" class="form-control"
+								th:field="*{employeeName}" name="employeeName"
+								placeholder="Employee Name" /></td>
+							<td th:if="${#fields.hasErrors('employeeName')}"
+								th:errors="*{employeeName}" style="color: #FF1C19">Creator
+								Error</td>
+						</tr>
+						<tr>
+							<td>Item name:</td>
+							<td><input type="text" class="form-control"
+								th:field="*{itemName}" name="itemName" placeholder="Item name" /></td>
+							<td th:if="${#fields.hasErrors('itemName')}"
+								th:errors="*{itemName}" style="color: #FF1C19">Item name
+								Error</td>
+						</tr>
+						<tr>
+							<td>Price:</td>
+							<td><input type="text" class="form-control"
+								th:field="*{price}" name="price" placeholder="Price" /></td>
+							<td th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
+								style="color: #FF1C19">Price Error</td>
+						</tr>
+					</table>
 
-                <input type="hidden"
-                       name="${_csrf.parameterName}"
-                       value="${_csrf.token}"/>
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
 
-                <button class="btn btn-success" type="submit">Add order</button>
-                <br>
-                <br>
-            </div>
-        </form>
-
-        <!--<div align="center" th:if="${param.error}">-->
-            <!--<p style="font-size: 20; color: #FF1C19;">Error with send orders. Please check all information!</p>-->
-        <!--</div>-->
-            <div hidden id="emailButton">
-                <a class="btn btn-success" th:href="${'/employee/sendEmail/'+ groupOrder.id}" th:value="${groupOrder.id}">Send order</a>
-            </div>
+					<button class="btn btn-success" type="submit">Add order</button>
+					<br> <br>
+				</div>
+			</form>
+			<div hidden id="emailButton">
+				<a class="btn btn-success"
+					th:href="${'/send-email/'+ groupOrder.id}"
+					th:value="${groupOrder.id}">Send order</a>
+			</div>
 
 
-        <!--<form th:action="@{/employee/list}" method="get">-->
-        <!--<button class="btn btn-md btn btn-primary" name="back"-->
-        <!--type="Submit">Back-->
-        <!--</button></form>-->
-        <hr>
-        <div id="refresh">
-            <table class="table table-striped">
-                <tr>
-                    <th style="color: #f2f2f2 ;background-color:#669999; font-size: large">Employee</th>
-                    <th style="color: #f2f2f2 ;background-color:#669999; font-size: large">Item</th>
-                    <th style="color: #f2f2f2 ;background-color:#669999; font-size: large">Price</th>
+			<!--<form th:action="@{/employee/list}" method="get">-->
+			<!--<button class="btn btn-md btn btn-primary" name="back"-->
+			<!--type="Submit">Back-->
+			<!--</button></form>-->
+			<hr>
+			<div id="refresh">
+				<table class="table table-striped">
+					<tr>
+						<th
+							style="color: #f2f2f2; background-color: #669999; font-size: large">Employee</th>
+						<th
+							style="color: #f2f2f2; background-color: #669999; font-size: large">Item</th>
+						<th
+							style="color: #f2f2f2; background-color: #669999; font-size: large">Price</th>
 
-                </tr>
-                <tr th:each="order : ${groupOrder.getOrders()}">
-                    <td th:utext="${order.employeeName}"></td>
-                    <td th:utext="${order.itemName}"></td>
-                    <td th:utext="${order.price}"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td class="" th:text="'Total  ' + ${total}"></td>
+					</tr>
+					<tr th:each="order : ${groupOrder.getOrders()}">
+						<td th:utext="${order.employeeName}"></td>
+						<td th:utext="${order.itemName}"></td>
+						<td th:utext="${order.price}"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td class="" th:text="'Total  ' + ${total}"></td>
 
-                </tr>
-            </table>
+					</tr>
+				</table>
 
-        </div>
-        <br>
-        <form th:action="@{/}" method="get">
-            <button class="btn btn-md btn-primary"
-                    type="Submit">Back
-            </button>
-            <br/><br/><br/><br/>
-        </form>
-    </div>
-  </div>
+			</div>
+			<br>
+			<form th:action="@{/}" method="get">
+				<button class="btn btn-md btn-primary" type="Submit">Back</button>
+				<br />
+				<br />
+				<br />
+				<br />
+			</form>
+		</div>
+	</div>
 
 
 </body>

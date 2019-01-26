@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Food ordering</title>
+<meta http-equiv="Refresh" content="5">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Custom CSS -->
+
+<link rel="stylesheet"
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans'
+	rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Architects+Daughter'
+	rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<div class="container"></div>
+	<div class="container topnav">
+		<div class="container">
+			<div class="col-md-10 col-md-offset-1">
+				<h2 style="text: 25px; font-family: 'Architects Daughter', cursive" th:utext="'All
+					active group orders for restaurant: ' + ${restaurant.name}"></h2>
+				<div></div>
+				<table class="table table-light table-hover table-bordered">
+					<tr>
+						<th
+							style="color: #f2f2f2; background-color: #669999; font-size: large">Creator</th>
+						<th
+							style="color: #f2f2f2; background-color: #669999; font-size: large">Created</th>
+
+						<th
+							style="color: #f2f2f2; background-color: #669999; font-size: large">About
+							orders</th>
+						<th
+							style="color: #f2f2f2; background-color: #669999; font-size: large">Total</th>
+						<th
+							style="color: #f2f2f2; background-color: #669999; font-size: large">View
+							orders</th>
+
+					</tr>
+
+					<tr th:each="groupOrder : ${activeGroupOrders}" style="background-color: #f8f9fa;">
+						<td th:utext="${groupOrder.creator}"></td>
+						<td th:utext="${groupOrder.created}"></td>
+						<td>
+							<table class="table">
+								<tr>
+									<th>Employee</th>
+									<th>Item</th>
+									<th>Price</th>
+								</tr>
+								<tr th:each="order : ${groupOrder.getOrders()}" style="background-color: #f8f9fa;">
+									<td th:utext="${order.employeeName}"></td>
+									<td th:utext="${order.itemName}"></td>
+									<td th:utext="${order.price}"></td>
+								</tr>
+							</table>
+						</td>
+
+						<td th:utext="${groupOrder.getTotal()}"></td>
+
+						<td><a
+							th:href="'http://localhost:8080/group-order/' + ${groupOrder.id}">View
+								group order</a></td>
+					</tr>
+
+				</table>
+			</div>
+			<div class="d-inline-block">
+				<div class="col-md-10 col-md-offset-1">
+					<form th:action="@{/}" method="get">
+						<button class="btn btn-md btn btn-primary" name="back"
+							type="Submit">Back</button>
+					</form>
+
+					<div></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

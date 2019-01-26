@@ -1,5 +1,6 @@
 package com.foodordering.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,6 +50,20 @@ public class OrderServiceImpl implements OrderService {
 
         }
         return total;
+	}
+
+	@Override
+	public List<Order> getAllOrdersForGroupOrder(GroupOrder groupOrder) {
+		List<Order> orders = orderRepository.findAll();
+
+        List<Order> listToRet = new ArrayList<>();
+
+        for (Order o : orders){
+            if(o.getGroupOrder().getId().toString().equals(groupOrder.getId().toString())){
+                listToRet.add(o);
+            }
+        }
+        return listToRet;
 	}
 
 }

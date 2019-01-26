@@ -14,5 +14,6 @@ public interface OrderService {
    
    
     double getSumAllByGroupOrder(GroupOrder groupOrder);
+	public List<Order> getAllOrdersForGroupOrder(GroupOrder groupOrder);
  
 }

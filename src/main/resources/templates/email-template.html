@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--<meta http-equiv="Refresh" content="2">-->
+    <title>Group order</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+</head>
+<body>
+<h3 th:utext="'Restaurant: ' + ${groupOrder.getRestaurant().name}"></h3>
+<h3 th:utext="'Creator: ' + ${groupOrder.creator}"></h3>
+<h3 th:utext="'Created: ' + ${groupOrder.created}"></h3>
+<hr>
+<br>
+<table class="table table-striped">
+
+    <tr>
+        <th style="color: #f2f2f2 ;background-color:#669999; font-size: large">Employee</th>
+        <th style="color: #f2f2f2 ;background-color:#669999; font-size: large">Item</th>
+        <th style="color: #f2f2f2 ;background-color:#669999; font-size: large">Price</th>
+
+    </tr>
+    <tr th:each="order : ${groupOrder.getOrders()}">
+        <td th:utext="${order.employeeName}"></td>
+        <td th:utext="${order.itemName}"></td>
+        <td th:utext="${order.price}"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td class="" th:text="'Total  ' + ${groupOrder.getTotal()}"></td>
+
+    </tr>
+</table>
+<hr>
+<p>Than you for using this service.</p>
+<p>Best regards!</p>
+</body>

@@ -10,4 +10,5 @@ public interface GroupOrderService {
     GroupOrder getGroupOrderById(UUID id);
     GroupOrder saveGroupOrder(GroupOrder groupOrder);
 	void deleteGroupOrderById(String id);
+	List<GroupOrder> getAllActiveGroupOrders(UUID id);
 }

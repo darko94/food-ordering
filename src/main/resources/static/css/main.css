@@ -146,3 +146,7 @@ h6 {
     line-height: 1.5;
     border-radius: 40px;
 }
+
+.dataTables_filter, .dataTables_length, .dataTables_info {
+	color: #d9edf7;
+}

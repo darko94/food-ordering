@@ -1,6 +1,8 @@
 package com.foodordering.controller;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -17,8 +19,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.foodordering.dto.GroupOrderDTO;
 import com.foodordering.dto.RestaurantDTO;
+import com.foodordering.entity.GroupOrder;
 import com.foodordering.entity.Restaurant;
+import com.foodordering.service.GroupOrderService;
+import com.foodordering.service.OrderService;
 import com.foodordering.service.RestaurantService;
 
 @Controller
@@ -30,6 +36,12 @@ public class AdminController {
 	
 	@Autowired
 	private RestaurantService restaurantService;
+	
+	@Autowired
+	private GroupOrderService groupOrderService;
+	
+	@Autowired
+	private OrderService orderService;
 	
 	@GetMapping("/add-restaurant")
 	public ModelAndView addRestaurant() {
@@ -77,4 +89,29 @@ public class AdminController {
 
 		return "redirect:/";
 	}
+	
+	@GetMapping("/active-group-orders/{id}")
+	public ModelAndView listAllActiveGroupOrders(@PathVariable String id) {
+		ModelAndView  modelAndView = new ModelAndView();
+        List<GroupOrder> activeGroupOrders = groupOrderService.getAllActiveGroupOrders(UUID.fromString(id));
+
+        GroupOrder groupOrder = new GroupOrder();
+        groupOrder.setOrders(orderService.getAllOrders());
+        modelAndView.addObject("groupOrder", modelMapper.map(groupOrder, GroupOrderDTO.class));
+        
+        List<GroupOrderDTO> groupOrdersDTO = activeGroupOrders.stream()
+                .map(groupOrder1 -> convertToDto(groupOrder1))
+                .collect(Collectors.toList());
+        modelAndView.addObject("activeGroupOrders", groupOrdersDTO);
+        
+        modelAndView.addObject("restaurant", restaurantService.getRestaurantById(UUID.fromString(id)));
+        modelAndView.setViewName("active-group-orders");
+		
+		return modelAndView;
+	}
+	
+	private GroupOrderDTO convertToDto(GroupOrder groupOrder) {
+        GroupOrderDTO groupOrderDto = modelMapper.map(groupOrder, GroupOrderDTO.class);
+        return groupOrderDto;
+    }
 }
