@@ -1,9 +1,10 @@
 package com.foodordering.service.impl;
 
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -18,6 +19,8 @@ import com.foodordering.service.OrderService;
 
 @Service
 public class EmailServiceImpl implements EmailService {
+
+	private final Logger LOGGER = LoggerFactory.getLogger(EmailServiceImpl.class);
 
 	@Autowired
 	private TemplateEngine templateEngine;
@@ -45,7 +48,6 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	public void emailTimer(long delay, GroupOrder groupOrder) {
-		System.out.println("Calling method emailTimer. Current time: " + new Date());
 		Timer timer = new Timer("email", true);
 		timer.schedule(new TimerTask() {
 

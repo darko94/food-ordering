@@ -6,8 +6,11 @@ import java.util.UUID;
 import com.foodordering.entity.Restaurant;
 
 public interface RestaurantService {
-    List<Restaurant> getAllRestaurants();
-    Restaurant getRestaurantById(UUID id);
-    Restaurant saveRestaurant(Restaurant restaurant);
+	List<Restaurant> getAllRestaurants();
+
+	Restaurant getRestaurantById(UUID id);
+
+	Restaurant saveRestaurant(Restaurant restaurant);
+
 	void deleteRestaurantById(String id);
 }
